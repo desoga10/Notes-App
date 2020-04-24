@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Renderer2, Input } from '@angular/core';
 
 @Component({
   selector: 'app-note-card',
@@ -6,10 +6,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./note-card.component.scss']
 })
 export class NoteCardComponent implements OnInit {
+  @Input() title: string;
+  @Input() body: string;
 
-  constructor() { }
+  constructor(private renderer: Renderer2) { }
 
-  ngOnInit(): void {
+  ngOnInit()  {
+   
   }
 
 }
