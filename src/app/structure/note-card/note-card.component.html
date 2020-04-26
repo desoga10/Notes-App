@@ -1,22 +1,24 @@
 
   <!-- <section class="cards"> -->
     <section class="cards">
-  <article class="card">
+  <article class="card" *ngFor="let note of notes">
     <div class="x-button"></div>
       <a href="#">
           <picture class="thumbnail">
               <img src="http://www.abbeyjfitzgerald.com/wp-content/uploads/2017/02/image-example-01.jpg" alt="A banana that looks like a bird">
           </picture>
           <div  class="card-content">
-              <h2>{{title}}</h2>
+              <h2>{{note.title}}</h2>
               <p 
               >
-             {{body}}
+             {{note.body}}
             </p>
               <div class="fade-out-truncation">
               </div>
           </div>
       </a>
   </article>
- 
+  <div style="text-align: center; padding-left: 16%;">
+    <button type="button" class="btn add" type="button" routerLink="new">+ Add</button>
+  </div>
 </section>

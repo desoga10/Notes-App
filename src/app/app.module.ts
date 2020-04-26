@@ -1,24 +1,31 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {HttpClientModule} from '@angular/common/http'
+import {NotesService} from '../app/shared/notes.service';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NoteListComponent } from './pages/note-list/note-list.component';
 import { LayoutComponent } from './structure/layout/layout.component';
 import { NoteCardComponent } from './structure/note-card/note-card.component';
+import { NoteDetailsComponent } from './pages/note-details/note-details.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NoteListComponent,
     LayoutComponent,
-    NoteCardComponent
+    NoteCardComponent,
+    NoteDetailsComponent
   ],
   imports: [
+    FormsModule, 
     BrowserModule,
-    AppRoutingModule
+    ReactiveFormsModule,
+    HttpClientModule,
+    AppRoutingModule,
   ],
-  providers: [],
+  providers: [NotesService],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
