@@ -1,9 +1,13 @@
 
   <!-- <section class="cards"> -->
     <section class="cards">
-  <article class="card" *ngFor="let note of notes">
+  <article 
+    class="card" 
+    *ngFor="let note of notes; index as i"
+    
+    >
     <div class="x-button"></div>
-      <a href="#">
+      <a [routerLink]="i">
           <picture class="thumbnail">
               <img src="http://www.abbeyjfitzgerald.com/wp-content/uploads/2017/02/image-example-01.jpg" alt="A banana that looks like a bird">
           </picture>

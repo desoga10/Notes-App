@@ -1,15 +1,18 @@
 
 <div class="container contains">
 <form [formGroup]="ngform" (ngSubmit)="onSubmit()">
+  <ng-container >
   <div class="form-group mt-5">
     <label for="exampleFormControlInput1">Title</label>
     <input 
       type="text" 
+      value="{{title}}"
       class="form-control" 
       id="exampleFormControlInput1" 
       placeholder="" 
       formControlName="title"
-      required>
+      required
+      >
   </div>
  
 
@@ -20,13 +23,16 @@
       id="exampleFormControlTextarea1" 
       rows="3" 
       formControlName="body"
-      required></textarea>
+      required
+  
+      ></textarea>
   </div>
 
   <div style="float: right;">
-    <button type="button" class="btn btn-secondary mr-3" type="button">Cancel</button>
+    <button type="button" class="btn btn-secondary mr-3" type="button" (click)="cancel()">Cancel</button>
     <button type="submit" class="btn btn-success" [disabled]="ngform.invalid" >Save</button>
     </div>
+  </ng-container>
 </form>
 
 </div>

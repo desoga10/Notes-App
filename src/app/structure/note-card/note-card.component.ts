@@ -16,6 +16,7 @@ export class NoteCardComponent implements OnInit {
 
   ngOnInit()  {
    this.notes = this.noteService.getAll()
+   console.log(this.notes)
   }
 
 }
