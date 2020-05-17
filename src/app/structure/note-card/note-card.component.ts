@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, Renderer2, Input } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Renderer2, Input, Output, EventEmitter } from '@angular/core';
 import { Note } from 'src/app/shared/notes.model';
 import { NotesService } from 'src/app/shared/notes.service';
 
@@ -17,6 +17,14 @@ export class NoteCardComponent implements OnInit {
   ngOnInit()  {
    this.notes = this.noteService.getAll()
    console.log(this.notes)
+  }
+
+  
+
+  deleteNote(id: number){
+    alert("Are You Sure You Want To Delete This Note")
+    this.noteService.delete(id);
+    console.log("Note Deleted")
   }
 
 }
