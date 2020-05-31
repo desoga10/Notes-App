@@ -1,9 +1,12 @@
-
+<div>
+  <button type="button" class="btn add" type="button" routerLink="new">+ Add</button>
+</div>
   <!-- <section class="cards"> -->
     <section class="cards">
   <article 
     class="card" 
     *ngFor="let note of notes; index as i"
+    [@itemAnim]
     >
     <div 
      class="x-button" 
@@ -25,7 +28,5 @@
           </div>
       </a>
   </article>
-  <div style="text-align: center; padding-left: 16%;">
-    <button type="button" class="btn add" type="button" routerLink="new">+ Add</button>
-  </div>
+ 
 </section>
