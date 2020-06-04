@@ -83,12 +83,14 @@ export class NoteCardComponent implements OnInit {
   @Input() title: string;
   @Input() body: string;
   notes: Note[] = new Array<Note>()
+  filteredNotes: Note[] = new Array<Note>();
 
   constructor(private noteService: NotesService) { }
 
   ngOnInit()  {
    this.notes = this.noteService.getAll()
-   console.log(this.notes)
+   this.filteredNotes = this.notes;
+   console.log(this.filteredNotes)
   }
 
   
@@ -97,6 +99,76 @@ export class NoteCardComponent implements OnInit {
     alert("Are You Sure You Want To Delete This Note")
     this.noteService.delete(id);
     console.log("Note Deleted")
+  }
+
+  filter(query: string) {
+    query = query.toLowerCase().trim();
+    let allResults: Note[] = new Array<Note>();
+    //split up the search query into individual words
+    let terms: string[] = query.split(' '); //split on spaces
+    //remove duplicate search items
+    terms = this.removeDuplicate(terms)
+    //Compile All Relevant Results inot The New Results Array
+    terms.forEach(term => {
+      let results: Note[] = this.relevantNotes(term);
+      //Append results to allresults array
+      allResults = [...allResults, ...results] 
+      console.log(allResults)
+    })
+
+    //All results should include duplicate note
+    //Because a single note could be the result of so many search terms.
+    //But duplicate notes will not be shown in the UI
+    //So, we remove the duplicates.
+
+    let uniqueNotes = this.removeDuplicate(allResults);
+    this.filteredNotes = uniqueNotes;
+  }
+
+  removeDuplicate(arr: Array<any>) : Array<any>{
+    let uniqueResults: Set<any> = new Set<any>();
+
+    //Loop through the input array and addthe items to the set
+    arr.forEach(e =>  uniqueResults.add(e));
+    return Array.from(uniqueResults)
+  }
+
+  relevantNotes(query:string) : Array<Note>{
+      query = query.toLowerCase().trim();
+      let relevantNotes = this.notes.filter(note => {
+        if(note.title &&  note.title.toLowerCase().includes(query)){
+          return true;
+        } 
+          if(note.body && note.body.toLowerCase().includes(query)){
+            return true;
+          }
+          return false;
+        
+      })
+      return relevantNotes
+  }
+
+  sortByRelevance(searchResults: Note[]){
+    //This method will return the relevance of the search results based on the number of times they appear in the search result
+    let noteCountObj: Object =  {}; 
+    searchResults.forEach(note  => {
+      let noteId = this.noteService.getId(note); //Get Note Id
+
+      if(noteCountObj[noteId]){
+          noteCountObj[noteId] += 1; 
+      } else {
+        noteCountObj[noteId] = 1;
+      }
+    })
+    this.filteredNotes = this.filteredNotes.sort((a: Note, b:Note) => {
+      let aId = this.noteService.getId(a)
+      let bId = this.noteService.getId(b)
+
+      let aCount = noteCountObj[aId];
+      let bCount = noteCountObj[bId]
+
+      return bCount - aCount;
+    })
   }
 
 }

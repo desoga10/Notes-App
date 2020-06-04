@@ -1,11 +1,24 @@
+
 <div>
-  <button type="button" class="btn add" type="button" routerLink="new">+ Add</button>
+  <main class="main-area">
+    <div class="centered">
+      <input 
+        type="text" 
+        class="form-control fas fa-search mt-5" 
+        id="inputext" 
+        placeholder="Filter"
+        (keyup)="filter($event.target.value)"
+        >
+        <span class="fas fa-search icon"></span>
+    </div>
+    </main>
+  <button type="button" class="btn add" type="button" routerLink="new" style="margin-left: 25px;">+ Add</button>
 </div>
   <!-- <section class="cards"> -->
     <section class="cards">
   <article 
     class="card" 
-    *ngFor="let note of notes; index as i"
+    *ngFor="let note of filteredNotes; index as i"
     [@itemAnim]
     >
     <div 
@@ -21,7 +34,7 @@
               <h2>{{note.title}}</h2>
               <p 
               >
-             {{note.body}}
+             {{note.body}} 
             </p>
               <div class="fade-out-truncation">
               </div>
