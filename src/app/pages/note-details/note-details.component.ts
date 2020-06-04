@@ -47,6 +47,12 @@ export class NoteDetailsComponent implements OnInit {
     console.log(this.ngform.value)
     console.log("defined")
     this.noteService.addNote(this.ngform.value)
+    let saveNote: any = this.ngform.value
+    setTimeout(() => {
+      localStorage.setItem('addNoteTitle', this.ngform.value.title);
+      localStorage.setItem('addNoteBody', this.ngform.value.body);
+    }, 2000);
+
     } else {
      this.noteService.update(this.noteId, this.ngform.value.title, this.ngform.value.body)
      console.log("undefined")

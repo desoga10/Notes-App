@@ -7,6 +7,7 @@
         class="form-control fas fa-search mt-5" 
         id="inputext" 
         placeholder="Filter"
+        #filterInput
         (keyup)="filter($event.target.value)"
         >
         <span class="fas fa-search icon"></span>
@@ -23,7 +24,7 @@
     >
     <div 
      class="x-button" 
-     (click)="deleteNote(i)"
+     (click)="deleteNote(note)"
      >
     </div>
       <a [routerLink]="i">

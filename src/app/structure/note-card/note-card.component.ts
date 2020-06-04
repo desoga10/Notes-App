@@ -84,20 +84,25 @@ export class NoteCardComponent implements OnInit {
   @Input() body: string;
   notes: Note[] = new Array<Note>()
   filteredNotes: Note[] = new Array<Note>();
+  @ViewChild('filterInput') filterInput: ElementRef<HTMLInputElement>
 
   constructor(private noteService: NotesService) { }
 
   ngOnInit()  {
    this.notes = this.noteService.getAll()
    this.filteredNotes = this.notes;
+    this.filter('')
    console.log(this.filteredNotes)
   }
 
   
 
-  deleteNote(id: number){
+  deleteNote(note : Note){
     alert("Are You Sure You Want To Delete This Note")
-    this.noteService.delete(id);
+    let noteId = this.noteService.getId(note)
+    this.noteService.delete(noteId);
+
+    this.filter(this.filterInput.nativeElement.value)
     console.log("Note Deleted")
   }
 
@@ -123,6 +128,9 @@ export class NoteCardComponent implements OnInit {
 
     let uniqueNotes = this.removeDuplicate(allResults);
     this.filteredNotes = uniqueNotes;
+
+    //Sort By Relevence
+    this.sortByRelevance(allResults)
   }
 
   removeDuplicate(arr: Array<any>) : Array<any>{
